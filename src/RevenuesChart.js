@@ -52,7 +52,7 @@ class RevenuesChart extends React.Component {
     const options = {
       legend: {
         labels: {
-          fontSize: 10,
+          fontSize: 14,
           boxWidth: 10,
         }
       },
@@ -73,7 +73,7 @@ class RevenuesChart extends React.Component {
         xAxes: [ {
           ticks: {
             autoSkip: false,
-            fontSize: 10
+            fontSize: 12
           },
           barPercentage: 0.4
         } ],
@@ -84,7 +84,7 @@ class RevenuesChart extends React.Component {
                 return formatNumber(label, 0);
               },
               min,
-              fontSize: 10
+              fontSize: 12
             },
           }
         ]

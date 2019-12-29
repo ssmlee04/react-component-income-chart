@@ -34,19 +34,19 @@ const attributes = [{
 const options = {
   legend: {
     labels: {
-      fontSize: 10,
+      fontSize: 14,
       boxWidth: 10,
     }
   },
   scales: {
     xAxes: [{
       ticks: {
-        fontSize: 10
+        fontSize: 12
       }
     }],
     yAxes: [{
       ticks: {
-        fontSize: 10
+        fontSize: 12
       }
     }]
   },

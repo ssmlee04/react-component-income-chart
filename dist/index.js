@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = exports.Analyst = void 0;
 
+var _lodash = _interopRequireDefault(require("lodash"));
+
 var _react = _interopRequireDefault(require("react"));
 
 var _MarginsChart = _interopRequireDefault(require("./MarginsChart"));
@@ -99,7 +101,62 @@ function (_React$Component) {
         }, btnText)));
       }
 
-      var data = profile.income_and_revenue_quarterly || [];
+      var calculateMargins = function calculateMargins(data) {
+        var divider = 1000000;
+        var unit = 'million';
+        var u = 'm';
+        if (!data || !data.length) return data;
+
+        if (data[0].rev > 1000000000) {
+          divider = 1000000000;
+          unit = 'billion';
+          u = 'b';
+        }
+
+        data = _lodash["default"].sortBy(data.filter(function (d) {
+          return d.reportDate;
+        }), function (d) {
+          return -d.reportDate;
+        }).reverse();
+        return data.map(function (d, i) {
+          var qq = ~~d.reportDate.slice(5, 7);
+          var yy = d.reportDate.slice(0, 4);
+          var qtr;
+
+          if (qq <= 3) {
+            qtr = 'Q1';
+          } else if (qq <= 6) {
+            qtr = 'Q2';
+          } else if (qq <= 9) {
+            qtr = 'Q3';
+          } else if (qq <= 12) {
+            qtr = 'Q4';
+          }
+
+          d.unit = unit;
+          d.u = u;
+          d.cogsSmall = d.cogs / divider;
+          d.ebitSmall = d.ebit / divider;
+          d.gpSmall = d.gp / divider;
+          d.incomeTaxSmall = d.incomeTax / divider;
+          d.niSmall = d.ni / divider;
+          d.oiSmall = d.oi / divider;
+          d.operatingExpenseSmall = d.operatingExpense / divider;
+          d.otherIncomeExpenseSmall = d.otherIncomeExpense / divider;
+          d.rndSmall = d.rnd / divider;
+          d.sgnaSmall = d.sgna / divider;
+          d.revSmall = d.rev / divider;
+          d.revenueGrowthYoy = data[i - 4] ? ((d.rev / data[i - 4].rev - 1) * 100).toFixed(2) : '';
+          d.quarterStr = yy + qtr;
+          d.gpMargin = parseFloat((d.gp / d.rev * 100).toFixed(2));
+          d.oiMargin = parseFloat((d.oi / d.rev * 100).toFixed(2));
+          d.ebitMargin = parseFloat((d.ebit / d.rev * 100).toFixed(2));
+          d.niMargin = parseFloat((d.ni / d.rev * 100).toFixed(2));
+          return d;
+        });
+      };
+
+      var data = calculateMargins(_lodash["default"].get(profile, 'income_and_revenue.data', []));
       return _react["default"].createElement("div", {
         style: {
           width: '100%',

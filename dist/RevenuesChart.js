@@ -110,7 +110,7 @@ function (_React$Component) {
       var options = {
         legend: {
           labels: {
-            fontSize: 10,
+            fontSize: 14,
             boxWidth: 10
           }
         },
@@ -131,7 +131,7 @@ function (_React$Component) {
           xAxes: [{
             ticks: {
               autoSkip: false,
-              fontSize: 10
+              fontSize: 12
             },
             barPercentage: 0.4
           }],
@@ -141,7 +141,7 @@ function (_React$Component) {
                 return formatNumber(label, 0);
               },
               min: min,
-              fontSize: 10
+              fontSize: 12
             }
           }]
         }
