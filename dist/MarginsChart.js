@@ -124,11 +124,15 @@ function (_React$Component) {
           return genDataSetAndAttributes(attr, initialData);
         })
       };
-      return _react["default"].createElement(_reactChartjs.Line, {
+      return _react["default"].createElement("div", {
+        style: {
+          width: '100%'
+        }
+      }, _react["default"].createElement(_reactChartjs.Line, {
         data: data,
         height: 180,
         options: options
-      });
+      }));
     }
   }]);
 

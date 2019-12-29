@@ -101,8 +101,17 @@ function (_React$Component) {
 
       var data = profile.income_and_revenue_quarterly || [];
       return _react["default"].createElement("div", {
-        className: "font-12 sansserif"
-      }, _react["default"].createElement(_MarginsChart["default"], {
+        style: {
+          width: '100%',
+          padding: 5,
+          fontSize: 14
+        }
+      }, _react["default"].createElement("div", {
+        style: {
+          color: 'darkred',
+          fontWeight: 'bold'
+        }
+      }, profile.ticker, " - ", profile.name), _react["default"].createElement(_MarginsChart["default"], {
         data: data
       }), _react["default"].createElement(_RevenuesChart["default"], {
         data: data

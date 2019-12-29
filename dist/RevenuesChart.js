@@ -146,11 +146,15 @@ function (_React$Component) {
           }]
         }
       };
-      return _react["default"].createElement(_reactChartjs.Bar, {
+      return _react["default"].createElement("div", {
+        style: {
+          width: '100%'
+        }
+      }, _react["default"].createElement(_reactChartjs.Bar, {
         data: data,
         height: 180,
         options: options
-      });
+      }));
     }
   }]);
 

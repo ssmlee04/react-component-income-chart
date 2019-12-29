@@ -74,7 +74,9 @@ class MarginsChart extends React.Component {
     };
 
     return (
-      <Line data={data} height={180} options={options} />
+      <div style={{ width: '100%' }}>
+        <Line data={data} height={180} options={options} />
+      </div>
     );
   }
 }

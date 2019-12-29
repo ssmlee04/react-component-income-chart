@@ -91,7 +91,9 @@ class RevenuesChart extends React.Component {
       }
     };
     return (
-      <Bar data={data} height={180} options={options} />
+      <div style={{ width: '100%' }}>
+        <Bar data={data} height={180} options={options} />
+      </div>
     );
   }
 }

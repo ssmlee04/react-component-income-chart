@@ -44,7 +44,8 @@ export class Analyst extends React.Component {
     }
     const data = profile.income_and_revenue_quarterly || [];
     return (
-      <div className='font-12 sansserif'>
+      <div style={{ width: '100%', padding: 5, fontSize: 14 }}>
+        <div style={{ color: 'darkred', fontWeight: 'bold' }}>{profile.ticker} - {profile.name}</div>
         <MarginsChart data={data} />
         <RevenuesChart data={data} />
       </div>
