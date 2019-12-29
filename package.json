@@ -6,7 +6,7 @@
     "react-chartjs-2": "^2.8.0",
     "react-copy-to-clipboard": "^5.0.2"
   },
-  "name": "react-component-analyst",
+  "name": "react-component-income-chart",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
@@ -40,13 +40,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ssmlee04/react-component-analyst.git"
+    "url": "git+https://github.com/ssmlee04/react-component-income-chart.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ssmlee04/react-component-analyst/issues"
+    "url": "https://github.com/ssmlee04/react-component-income-chart/issues"
   },
-  "homepage": "https://github.com/ssmlee04/react-component-analyst#readme",
+  "homepage": "https://github.com/ssmlee04/react-component-income-chart#readme",
   "description": ""
 }

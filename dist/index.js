@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.Analyst = void 0;
+exports["default"] = exports.IncomeChart = void 0;
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
@@ -37,22 +37,22 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var Analyst =
+var IncomeChart =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Analyst, _React$Component);
+  _inherits(IncomeChart, _React$Component);
 
-  function Analyst(props) {
+  function IncomeChart(props) {
     var _this;
 
-    _classCallCheck(this, Analyst);
+    _classCallCheck(this, IncomeChart);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Analyst).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(IncomeChart).call(this, props));
     _this.state = {};
     return _this;
   }
 
-  _createClass(Analyst, [{
+  _createClass(IncomeChart, [{
     key: "shouldComponentUpdate",
     value: function shouldComponentUpdate(nextProps, nextState) {
       var profile = this.props.profile;
@@ -83,7 +83,7 @@ function (_React$Component) {
         return _react["default"].createElement("div", {
           className: "react-components-show-button"
         }, _react["default"].createElement("img", {
-          alt: "".concat(profile.ticker, " - ").concat(profile.name, " analyst opinions"),
+          alt: "".concat(profile.ticker, " - ").concat(profile.name, " revenue and income margins"),
           src: profile.income_chart_img.url,
           style: {
             width: '100%'
@@ -181,9 +181,9 @@ function (_React$Component) {
     }
   }]);
 
-  return Analyst;
+  return IncomeChart;
 }(_react["default"].Component);
 
-exports.Analyst = Analyst;
-var _default = Analyst;
+exports.IncomeChart = IncomeChart;
+var _default = IncomeChart;
 exports["default"] = _default;

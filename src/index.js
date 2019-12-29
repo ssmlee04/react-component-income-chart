@@ -5,7 +5,7 @@ import RevenuesChart from './RevenuesChart';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import './../index.css';
 
-export class Analyst extends React.Component {
+export class IncomeChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +34,7 @@ export class Analyst extends React.Component {
       const btnText = copied ? 'Copied' : 'Copy Img';
       return (
         <div className='react-components-show-button'>
-          <img alt={`${profile.ticker} - ${profile.name} analyst opinions`} src={profile.income_chart_img.url} style={{ width: '100%' }} />
+          <img alt={`${profile.ticker} - ${profile.name} revenue and income margins`} src={profile.income_chart_img.url} style={{ width: '100%' }} />
           <CopyToClipboard text={profile.income_chart_img.url || ''}
             onCopy={() => this.setState({ copied: true })}
           >
@@ -112,4 +112,4 @@ export class Analyst extends React.Component {
   }
 }
 
-export default Analyst;
+export default IncomeChart;
