@@ -113,13 +113,18 @@ function (_React$Component) {
           u = 'b';
         }
 
-        data = _lodash["default"].sortBy(data.filter(function (d) {
+        data = data.filter(function (d) {
           return d.reportDate;
-        }), function (d) {
-          return -d.reportDate;
-        }).reverse();
+        });
+        data = data.map(function (d) {
+          d.reportDate = d.reportDate.replace(/-/g, '').slice(0, 6);
+          return d;
+        });
+        data = _lodash["default"].sortBy(data, function (d) {
+          return d.reportDate;
+        });
         return data.map(function (d, i) {
-          var qq = ~~d.reportDate.slice(5, 7);
+          var qq = ~~d.reportDate.slice(4, 6);
           var yy = d.reportDate.slice(0, 4);
           var qtr;
 

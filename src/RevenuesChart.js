@@ -43,7 +43,7 @@ class RevenuesChart extends React.Component {
       label: `Revenue Quarterly (${unit})`
     }];
     const data = {
-      labels: initialData.map(d => d.reportDate.replace(/-/g, '').slice(0, 6)),
+      labels: initialData.map(d => d.reportDate),
       datasets: attributes.map(attr => genDataSetAndAttributes(attr, initialData))
     };
     const min = _.get(data, 'datasets.0.data', []).reduce((t, d) => {

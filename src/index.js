@@ -53,13 +53,18 @@ export class Analyst extends React.Component {
         unit = 'billion';
         u = 'b';
       }
-      data = _.sortBy(data.filter(d => d.reportDate), (d) => {
-        return -d.reportDate;
-      }).reverse();
+      data = data.filter(d => d.reportDate);
+      data = data.map(d => {
+        d.reportDate = d.reportDate.replace(/-/g, '').slice(0, 6);
+        return d;
+      });
+      data = _.sortBy(data, (d) => {
+        return d.reportDate;
+      });
 
       return data.map((d, i) => {
-        const qq = ~~d.reportDate.slice(5, 7);
-        let yy =d.reportDate.slice(0, 4);
+        const qq = ~~d.reportDate.slice(4, 6);
+        let yy = d.reportDate.slice(0, 4);
         let qtr;
         if (qq <= 3) {
           qtr = 'Q1';

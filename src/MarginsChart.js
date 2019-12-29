@@ -69,7 +69,7 @@ class MarginsChart extends React.Component {
     const { data: initialData } = this.props;
     if (!initialData || !initialData.length) return null;
     const data = {
-      labels: initialData.map(d => d.reportDate.replace(/-/g, '').slice(0, 6)),
+      labels: initialData.map(d => d.reportDate),
       datasets: attributes.map(attr => genDataSetAndAttributes(attr, initialData))
     };
 

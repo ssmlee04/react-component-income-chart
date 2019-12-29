@@ -98,7 +98,7 @@ function (_React$Component) {
       }];
       var data = {
         labels: initialData.map(function (d) {
-          return d.reportDate.replace(/-/g, '').slice(0, 6);
+          return d.reportDate;
         }),
         datasets: attributes.map(function (attr) {
           return genDataSetAndAttributes(attr, initialData);
