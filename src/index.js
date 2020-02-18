@@ -44,10 +44,15 @@ export class IncomeChart extends React.Component {
       );
     }
     const calculateMargins = (data) => {
-      let divider = 1000000;
-      let unit = 'million';
-      let u = 'm';
+      let divider = 1000;
+      let unit = 'thousand';
+      let u = 'k';
       if (!data || !data.length) return data;
+      if (data[0].rev > 1000000) {
+        divider = 1000000;
+        unit = 'milllion';
+        u = 'm';
+      }
       if (data[0].rev > 1000000000) {
         divider = 1000000000;
         unit = 'billion';
