@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import MarginsChart from './MarginsChart';
-import RevenuesChart from './RevenuesChart';
+// import RevenuesChart from './RevenuesChart';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import './../index.css';
 
@@ -107,11 +107,11 @@ export class IncomeChart extends React.Component {
     };
 
     const data = calculateMargins(_.get(profile, 'income_and_revenue.data', []));
+
     return (
       <div style={{ width: '100%', padding: 5, fontSize: 14 }}>
-        <div style={{ color: 'darkred', fontWeight: 'bold' }}>{profile.ticker} - {profile.name}</div>
+        <div style={{ color: 'darkred', fontWeight: 'bold' }}>{profile.ticker} - {profile.name} <span className='green'>Revenue and Margins</span></div>
         <MarginsChart data={data} />
-        <RevenuesChart data={data} />
       </div>
     );
   }

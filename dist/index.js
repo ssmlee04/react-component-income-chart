@@ -11,8 +11,6 @@ var _react = _interopRequireDefault(require("react"));
 
 var _MarginsChart = _interopRequireDefault(require("./MarginsChart"));
 
-var _RevenuesChart = _interopRequireDefault(require("./RevenuesChart"));
-
 var _reactCopyToClipboard = require("react-copy-to-clipboard");
 
 require("./../index.css");
@@ -179,9 +177,9 @@ function (_React$Component) {
           color: 'darkred',
           fontWeight: 'bold'
         }
-      }, profile.ticker, " - ", profile.name), _react["default"].createElement(_MarginsChart["default"], {
-        data: data
-      }), _react["default"].createElement(_RevenuesChart["default"], {
+      }, profile.ticker, " - ", profile.name, " ", _react["default"].createElement("span", {
+        className: "green"
+      }, "Revenue and Margins")), _react["default"].createElement(_MarginsChart["default"], {
         data: data
       }));
     }
