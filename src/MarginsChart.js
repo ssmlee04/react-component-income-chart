@@ -30,8 +30,8 @@ const attributes = [{
   attr: 'oiMargin',
   label: 'Operating Mgn (%)'
 }, {
-  backgroundColor: 'gold',
-  borderColor: 'gold',
+  backgroundColor: 'salmon',
+  borderColor: 'salmon',
   attr: 'niMargin',
   label: 'Net Income Mgn (%)'
 }, {
