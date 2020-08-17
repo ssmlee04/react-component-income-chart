@@ -67,8 +67,8 @@ var attributes = [{
   attr: 'oiMargin',
   label: 'Operating Mgn (%)'
 }, {
-  backgroundColor: 'red',
-  borderColor: 'red',
+  backgroundColor: 'gold',
+  borderColor: 'gold',
   attr: 'niMargin',
   label: 'Net Income Mgn (%)'
 }, {
@@ -165,11 +165,10 @@ function (_React$Component) {
               show: true
             },
             ticks: {
-              fontSize: 10 // fontColor: 'black',
-              // callback: function(label, index, labels) {
-              //   return formatNumber2(label, 0);
-              // }
-
+              fontSize: 10,
+              callback: function callback(label, index, labels) {
+                return label + '%';
+              }
             }
           }, {
             type: 'linear',

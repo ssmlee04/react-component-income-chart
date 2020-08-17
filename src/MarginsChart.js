@@ -30,8 +30,8 @@ const attributes = [{
   attr: 'oiMargin',
   label: 'Operating Mgn (%)'
 }, {
-  backgroundColor: 'red',
-  borderColor: 'red',
+  backgroundColor: 'gold',
+  borderColor: 'gold',
   attr: 'niMargin',
   label: 'Net Income Mgn (%)'
 }, {
@@ -100,10 +100,9 @@ class MarginsChart extends React.Component {
                 },
                 ticks: {
                   fontSize: 10,
-                    // fontColor: 'black',
-                    // callback: function(label, index, labels) {
-                    //   return formatNumber2(label, 0);
-                    // }
+                    callback: function(label, index, labels) {
+                      return label + '%';
+                    }
                 },
               },
               {
