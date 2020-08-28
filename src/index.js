@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
 import MarginsChart from './MarginsChart';
-// import RevenuesChart from './RevenuesChart';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import './../index.css';
 
@@ -22,20 +21,20 @@ export class IncomeChart extends React.Component {
   }
 
   render() {
-    const { profile } = this.props;
+    const { profile, prop = 'income_and_revenue', imgProp = 'income_chart_img' } = this.props;
     const { copied } = this.state;
     if (!profile) {
       return (
         <div style={{ fontSize: 14 }}>Not available at this time... </div>
       );
     }
-    if (profile.income_chart_img && profile.income_chart_img.url) {
+    if (profile[imgProp] && profile[imgProp].url) {
       const btnClass = copied ? 'react-components-show-url btn btn-sm btn-danger disabled font-10' : 'react-components-show-url btn btn-sm btn-warning font-10';
       const btnText = copied ? 'Copied' : 'Copy Img';
       return (
         <div className='react-components-show-button'>
-          <img alt={`${profile.ticker} - ${profile.name} revenue and income margins`} src={profile.income_chart_img.url} style={{ width: '100%' }} />
-          <CopyToClipboard text={profile.income_chart_img.url || ''}
+          <img alt={`${profile.ticker} - ${profile.name} revenue and income margins`} src={profile[imgProp].url} style={{ width: '100%' }} />
+          <CopyToClipboard text={profile[imgProp].url || ''}
             onCopy={() => this.setState({ copied: true })}
           >
             <button className={btnClass} value={btnText}>{btnText}</button>
@@ -106,7 +105,7 @@ export class IncomeChart extends React.Component {
       });
     };
 
-    const data = calculateMargins(_.get(profile, 'income_and_revenue.data', []));
+    const data = calculateMargins(_.get(profile, `${prop}.data`, []));
 
     return (
       <div style={{ width: '100%', padding: 5, fontSize: 14 }}>
