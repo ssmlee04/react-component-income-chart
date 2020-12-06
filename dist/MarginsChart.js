@@ -142,14 +142,14 @@ function (_React$Component) {
       var options = {
         legend: {
           labels: {
-            fontSize: 14,
+            fontSize: 8,
             boxWidth: 10
           }
         },
         scales: {
           xAxes: [{
             ticks: {
-              fontSize: 12
+              fontSize: 8
             },
             barPercentage: 0.4
           }],
@@ -165,7 +165,7 @@ function (_React$Component) {
               show: true
             },
             ticks: {
-              fontSize: 10,
+              fontSize: 8,
               callback: function callback(label, index, labels) {
                 return label + '%';
               }
@@ -179,36 +179,20 @@ function (_React$Component) {
               show: true
             },
             ticks: {
-              fontSize: 10,
+              fontSize: 8,
               min: 0,
               callback: function callback(label, index, labels) {
                 return Math.floor(label / divider);
               }
             }
           }]
-        },
-        tooltips: {
-          callbacks: {
-            label: function label(tooltipItem, data) {
-              var info = data.datasets[tooltipItem.datasetIndex];
-              var reportDate = info.all[tooltipItem.datasetIndex].reportDate;
-              var label = "".concat(reportDate, " ").concat(info.label, ": ");
-              label += tooltipItem.yLabel || 'n/a';
-              label += '%';
-              return label;
-            }
-          }
         }
       };
-      return _react["default"].createElement("div", {
-        style: {
-          width: '100%'
-        }
-      }, _react["default"].createElement(_reactChartjs.Bar, {
+      return _react["default"].createElement(_reactChartjs.Bar, {
         data: data,
         height: 220,
         options: options
-      }));
+      });
     }
   }]);
 

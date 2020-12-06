@@ -76,70 +76,56 @@ class MarginsChart extends React.Component {
     const options = {
       legend: {
         labels: {
-          fontSize: 14,
+          fontSize: 8,
           boxWidth: 10,
         }
       },
       scales: {
         xAxes: [{
           ticks: {
-            fontSize: 12
+            fontSize: 8
           },
           barPercentage: 0.4
         }],
         yAxes: [{
-                type: 'linear',
-                display: true,
-                position: 'right',
-                id: 'margins',
-                gridLines: {
-                  display: false
-                },
-                labels: {
-                  show: true
-                },
-                ticks: {
-                  fontSize: 10,
-                    callback: function(label, index, labels) {
-                      return label + '%';
-                    }
-                },
-              },
-              {
-                type: 'linear',
-                display: true,
-                position: 'left',
-                id: 'revenue',
-                labels: {
-                  show: true
-                },
-                ticks: {
-                  fontSize: 10,
-                  min: 0,
-                  callback: function(label, index, labels) {
-                    return Math.floor(label / divider);
-                  }
-                },
-              }]
+          type: 'linear',
+          display: true,
+          position: 'right',
+          id: 'margins',
+          gridLines: {
+            display: false
+          },
+          labels: {
+            show: true
+          },
+          ticks: {
+            fontSize: 8,
+              callback: function(label, index, labels) {
+                return label + '%';
+              }
+          },
+        },
+        {
+          type: 'linear',
+          display: true,
+          position: 'left',
+          id: 'revenue',
+          labels: {
+            show: true
+          },
+          ticks: {
+            fontSize: 8,
+            min: 0,
+            callback: function(label, index, labels) {
+              return Math.floor(label / divider);
+            }
+          },
+        }]
       },
-      tooltips: {
-        callbacks: {
-          label: function(tooltipItem, data) {
-            const info = data.datasets[tooltipItem.datasetIndex];
-            const reportDate = info.all[tooltipItem.datasetIndex].reportDate;
-              var label = `${reportDate} ${info.label}: `;
-              label += tooltipItem.yLabel || 'n/a';
-              label += '%';
-              return label;
-          }
-        }
-      }
     };
 
     return (
-      <div style={{ width: '100%' }}>
-        <Bar data={data} height={220} options={options} />
-      </div>
+      <Bar data={data} height={220} options={options} />
     );
   }
 }

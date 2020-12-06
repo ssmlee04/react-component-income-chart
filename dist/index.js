@@ -35,38 +35,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var options = {
-  legend: {
-    labels: {
-      fontSize: 8,
-      boxWidth: 10
-    }
-  },
-  scales: {
-    xAxes: [{
-      ticks: {
-        fontSize: 8
-      },
-      barPercentage: 0.4
-    }],
-    yAxes: [{
-      type: 'linear',
-      display: true,
-      position: 'left',
-      labels: {
-        show: true
-      },
-      ticks: {
-        reverse: true,
-        fontSize: 8,
-        callback: function callback(label, index, labels) {
-          return Math.floor(label);
-        }
-      }
-    }]
-  }
-};
-
 var IncomeChart =
 /*#__PURE__*/
 function (_React$Component) {
@@ -217,8 +185,7 @@ function (_React$Component) {
       }, profile.ticker, " - ", profile.name, " ", _react["default"].createElement("span", {
         className: "green"
       }, "Revenue and Margins")), _react["default"].createElement(_MarginsChart["default"], {
-        data: data,
-        options: options
+        data: data
       }), _react["default"].createElement("div", {
         style: {
           fontSize: 8,
