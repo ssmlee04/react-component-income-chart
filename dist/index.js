@@ -200,7 +200,7 @@ function (_React$Component) {
           fontSize: 8,
           color: 'red'
         }
-      }, "\u2764\uFE0F")));
+      }, "\uD83D\uDE80")));
     }
   }]);
 

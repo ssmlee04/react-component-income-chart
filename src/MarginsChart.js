@@ -8,9 +8,10 @@ const genDataSetAndAttributes = (attribute, alldata) => {
     yAxisID: attribute.id || 'margins',
     type: attribute.type || 'line',
     fill: false,
-    lineTension: 0,
+    lineTension: 0.5,
     borderWidth: 1,
-    pointRadius: 2,
+    pointRadius: 1,
+    pointBackgroundColor: 'white',
     pointHoverRadius: 2,
     data,
     all: alldata,
@@ -20,8 +21,8 @@ const genDataSetAndAttributes = (attribute, alldata) => {
 };
 
 const attributes = [{
-  backgroundColor: 'green',
-  borderColor: 'green',
+  backgroundColor: 'limegreen',
+  borderColor: 'limegreen',
   attr: 'gpMargin',
   label: 'Gross Profit Mgn (%)'
 }, {
