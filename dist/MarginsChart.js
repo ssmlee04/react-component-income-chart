@@ -46,10 +46,10 @@ var genDataSetAndAttributes = function genDataSetAndAttributes(attribute, alldat
     type: attribute.type || 'line',
     fill: false,
     lineTension: 0.3,
-    borderWidth: 1,
-    pointRadius: 2,
+    borderWidth: 1.5,
+    pointRadius: 2.5,
     pointBackgroundColor: 'white',
-    pointHoverRadius: 2,
+    pointHoverRadius: 5,
     data: data,
     all: alldata
   }, attribute, {
@@ -58,8 +58,8 @@ var genDataSetAndAttributes = function genDataSetAndAttributes(attribute, alldat
 };
 
 var attributes = [{
-  backgroundColor: 'limegreen',
-  borderColor: 'limegreen',
+  backgroundColor: 'green',
+  borderColor: 'green',
   attr: 'gpMargin',
   label: 'Gross Profit Mgn (%)'
 }, {
@@ -143,14 +143,14 @@ function (_React$Component) {
       var options = {
         legend: {
           labels: {
-            fontSize: 8,
+            fontSize: 12,
             boxWidth: 10
           }
         },
         scales: {
           xAxes: [{
             ticks: {
-              fontSize: 8
+              fontSize: 12
             },
             barPercentage: 0.4
           }],
@@ -166,7 +166,7 @@ function (_React$Component) {
               show: true
             },
             ticks: {
-              fontSize: 8,
+              fontSize: 12,
               callback: function callback(label, index, labels) {
                 return label + '%';
               }
@@ -180,7 +180,7 @@ function (_React$Component) {
               show: true
             },
             ticks: {
-              fontSize: 8,
+              fontSize: 12,
               min: 0,
               callback: function callback(label, index, labels) {
                 return Math.floor(label / divider);

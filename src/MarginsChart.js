@@ -9,10 +9,10 @@ const genDataSetAndAttributes = (attribute, alldata) => {
     type: attribute.type || 'line',
     fill: false,
     lineTension: 0.3,
-    borderWidth: 1,
-    pointRadius: 2,
+    borderWidth: 1.5,
+    pointRadius: 2.5,
     pointBackgroundColor: 'white',
-    pointHoverRadius: 2,
+    pointHoverRadius: 5,
     data,
     all: alldata,
     ...attribute,
@@ -21,8 +21,8 @@ const genDataSetAndAttributes = (attribute, alldata) => {
 };
 
 const attributes = [{
-  backgroundColor: 'limegreen',
-  borderColor: 'limegreen',
+  backgroundColor: 'green',
+  borderColor: 'green',
   attr: 'gpMargin',
   label: 'Gross Profit Mgn (%)'
 }, {
@@ -77,14 +77,14 @@ class MarginsChart extends React.Component {
     const options = {
       legend: {
         labels: {
-          fontSize: 8,
+          fontSize: 12,
           boxWidth: 10,
         }
       },
       scales: {
         xAxes: [{
           ticks: {
-            fontSize: 8
+            fontSize: 12
           },
           barPercentage: 0.4
         }],
@@ -100,7 +100,7 @@ class MarginsChart extends React.Component {
             show: true
           },
           ticks: {
-            fontSize: 8,
+            fontSize: 12,
               callback: function(label, index, labels) {
                 return label + '%';
               }
@@ -115,7 +115,7 @@ class MarginsChart extends React.Component {
             show: true
           },
           ticks: {
-            fontSize: 8,
+            fontSize: 12,
             min: 0,
             callback: function(label, index, labels) {
               return Math.floor(label / divider);
