@@ -15,6 +15,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -30,32 +36,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var genDataSetAndAttributes = function genDataSetAndAttributes(attribute, alldata) {
-  var data = alldata.map(function (d) {
-    return _lodash["default"].get(d, attribute.attr);
-  });
-  return _objectSpread({
-    yAxisID: attribute.id || 'margins',
-    type: attribute.type || 'line',
-    fill: false,
-    lineTension: 0.3,
-    borderWidth: 1.5,
-    pointRadius: 2.5,
-    pointBackgroundColor: 'white',
-    pointHoverRadius: 5,
-    data: data,
-    all: alldata
-  }, attribute, {
-    label: attribute.attachUnit ? "".concat(attribute.label, " (").concat(normalize(data).unit, ")") : attribute.label
-  });
-};
 
 var attributes = [{
   backgroundColor: 'green',
@@ -126,9 +106,36 @@ function (_React$Component) {
   _createClass(MarginsChart, [{
     key: "render",
     value: function render() {
-      var initialData = this.props.data;
+      var _this$props = this.props,
+          initialData = _this$props.data,
+          _this$props$theme = _this$props.theme,
+          theme = _this$props$theme === void 0 ? 'light' : _this$props$theme;
       if (!initialData || !initialData.length) return null;
       initialData = initialData.slice(-15);
+      var fontColor = theme === 'light' ? '#222222' : '#dddddd';
+      var dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.5)' : 'rgba(64, 255, 0, 0.5)';
+      var gridColor = theme === 'light' ? 'rgba(80, 80, 80, 0.1)' : 'rgba(255, 255, 255, 0.2)';
+
+      var genDataSetAndAttributes = function genDataSetAndAttributes(attribute, alldata) {
+        var data = alldata.map(function (d) {
+          return _lodash["default"].get(d, attribute.attr);
+        });
+        return _objectSpread({
+          yAxisID: attribute.id || 'margins',
+          type: attribute.type || 'line',
+          fill: false,
+          lineTension: 0.3,
+          borderWidth: 1.5,
+          pointRadius: 2.5,
+          backgroundColor: dataColor,
+          pointHoverRadius: 5,
+          data: data,
+          all: alldata
+        }, attribute, {
+          label: attribute.attachUnit ? "".concat(attribute.label, " (").concat(normalize(data).unit, ")") : attribute.label
+        });
+      };
+
       var data = {
         labels: initialData.map(function (d) {
           return d.reportDate;
@@ -144,13 +151,18 @@ function (_React$Component) {
         legend: {
           labels: {
             fontSize: 12,
+            fontColor: fontColor,
             boxWidth: 10
           }
         },
         scales: {
           xAxes: [{
             ticks: {
-              fontSize: 12
+              fontSize: 12,
+              fontColor: fontColor
+            },
+            gridLines: {
+              color: gridColor
             },
             barPercentage: 0.4
           }],
@@ -160,13 +172,14 @@ function (_React$Component) {
             position: 'right',
             id: 'margins',
             gridLines: {
-              display: false
+              color: gridColor
             },
             labels: {
               show: true
             },
             ticks: {
               fontSize: 12,
+              fontColor: fontColor,
               callback: function callback(label, index, labels) {
                 return label + '%';
               }
@@ -181,6 +194,7 @@ function (_React$Component) {
             },
             ticks: {
               fontSize: 12,
+              fontColor: fontColor,
               min: 0,
               callback: function callback(label, index, labels) {
                 return Math.floor(label / divider);

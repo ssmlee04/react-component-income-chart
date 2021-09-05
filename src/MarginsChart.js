@@ -2,24 +2,6 @@ import React from "react";
 import _ from "lodash";
 import { Bar } from 'react-chartjs-2';
 
-const genDataSetAndAttributes = (attribute, alldata) => {
-  const data = alldata.map(d => _.get(d, attribute.attr));
-  return {
-    yAxisID: attribute.id || 'margins',
-    type: attribute.type || 'line',
-    fill: false,
-    lineTension: 0.3,
-    borderWidth: 1.5,
-    pointRadius: 2.5,
-    pointBackgroundColor: 'white',
-    pointHoverRadius: 5,
-    data,
-    all: alldata,
-    ...attribute,
-    label: attribute.attachUnit ? `${attribute.label} (${normalize(data).unit})` : attribute.label
-  };
-};
-
 const attributes = [{
   backgroundColor: 'green',
   borderColor: 'green',
@@ -66,9 +48,29 @@ const normalize = (data) => {
 
 class MarginsChart extends React.Component {
   render() {
-    let { data: initialData } = this.props;
+    let { data: initialData, theme = 'light' } = this.props;
     if (!initialData || !initialData.length) return null;
     initialData = initialData.slice(-15);
+    const fontColor = theme === 'light' ? '#222222' : '#dddddd';
+    const dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.5)' : 'rgba(64, 255, 0, 0.5)';
+    const gridColor = theme === 'light' ? 'rgba(80, 80, 80, 0.1)' : 'rgba(255, 255, 255, 0.2)';
+    const genDataSetAndAttributes = (attribute, alldata) => {
+      const data = alldata.map(d => _.get(d, attribute.attr));
+      return {
+        yAxisID: attribute.id || 'margins',
+        type: attribute.type || 'line',
+        fill: false,
+        lineTension: 0.3,
+        borderWidth: 1.5,
+        pointRadius: 2.5,
+        backgroundColor: dataColor,
+        pointHoverRadius: 5,
+        data,
+        all: alldata,
+        ...attribute,
+        label: attribute.attachUnit ? `${attribute.label} (${normalize(data).unit})` : attribute.label
+      };
+    };
     const data = {
       labels: initialData.map(d => d.reportDate),
       datasets: attributes.map(attr => genDataSetAndAttributes(attr, initialData))
@@ -78,13 +80,18 @@ class MarginsChart extends React.Component {
       legend: {
         labels: {
           fontSize: 12,
+          fontColor, 
           boxWidth: 10,
         }
       },
       scales: {
         xAxes: [{
           ticks: {
-            fontSize: 12
+            fontSize: 12,
+            fontColor 
+          },
+          gridLines: {
+            color: gridColor
           },
           barPercentage: 0.4
         }],
@@ -94,13 +101,14 @@ class MarginsChart extends React.Component {
           position: 'right',
           id: 'margins',
           gridLines: {
-            display: false
+            color: gridColor
           },
           labels: {
             show: true
           },
           ticks: {
             fontSize: 12,
+            fontColor, 
               callback: function(label, index, labels) {
                 return label + '%';
               }
@@ -116,6 +124,7 @@ class MarginsChart extends React.Component {
           },
           ticks: {
             fontSize: 12,
+            fontColor, 
             min: 0,
             callback: function(label, index, labels) {
               return Math.floor(label / divider);
