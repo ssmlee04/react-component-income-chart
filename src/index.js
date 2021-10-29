@@ -12,14 +12,6 @@ export class IncomeChart extends React.Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { profile } = this.props;
-    if (!profile) return true;
-    if (nextState.copied) return true;
-    if (profile.ticker !== nextProps.profile.ticker) return true;
-    return false;
-  }
-
   render() {
     const { profile, prop = 'income_and_revenue', imgProp = 'income_chart_img', theme = 'light' } = this.props;
     const { copied } = this.state;
