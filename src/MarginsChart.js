@@ -6,17 +6,17 @@ const attributes = [{
   backgroundColor: 'green',
   borderColor: 'green',
   attr: 'gpMargin',
-  label: 'Gross Profit Mgn (%)'
+  label: 'Gross Margin (%)'
 }, {
   backgroundColor: 'orange',
   borderColor: 'orange',
   attr: 'oiMargin',
-  label: 'Operating Mgn (%)'
+  label: 'Operating Margin (%)'
 }, {
   backgroundColor: 'salmon',
   borderColor: 'salmon',
   attr: 'niMargin',
-  label: 'Net Income Mgn (%)'
+  label: 'Net Income Margin (%)'
 }, {
   backgroundColor: '#368BC1',
   borderColor: '#368BC1',
@@ -52,8 +52,9 @@ class MarginsChart extends React.Component {
     if (!initialData || !initialData.length) return null;
     initialData = initialData.slice(-15);
     const fontColor = theme === 'light' ? '#222222' : '#dddddd';
-    const dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.5)' : 'rgba(64, 255, 0, 0.5)';
+    const dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.3)' : 'rgba(64, 255, 0, 0.5)';
     const gridColor = theme === 'light' ? 'rgba(80, 80, 80, 0.1)' : 'rgba(255, 255, 255, 0.2)';
+
     const genDataSetAndAttributes = (attribute, alldata) => {
       const data = alldata.map(d => _.get(d, attribute.attr));
       return {
