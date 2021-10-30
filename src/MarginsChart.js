@@ -2,32 +2,6 @@ import React from "react";
 import _ from "lodash";
 import { Bar } from 'react-chartjs-2';
 
-const attributes = [{
-  backgroundColor: 'green',
-  borderColor: 'green',
-  attr: 'gpMargin',
-  label: 'Gross Margin (%)'
-}, {
-  backgroundColor: 'orange',
-  borderColor: 'orange',
-  attr: 'oiMargin',
-  label: 'Operating Margin (%)'
-}, {
-  backgroundColor: 'salmon',
-  borderColor: 'salmon',
-  attr: 'niMargin',
-  label: 'Net Income Margin (%)'
-}, {
-  backgroundColor: '#368BC1',
-  borderColor: '#368BC1',
-  attr: 'rev',
-  id: 'revenue',
-  type: 'bar',
-  attachUnit: true,
-  label: `Quarterly Revenue`
-}];
-
-
 const normalize = (data) => {
   let divider = 1000;
   let unit = 'thousands';
@@ -52,8 +26,36 @@ class MarginsChart extends React.Component {
     if (!initialData || !initialData.length) return null;
     initialData = initialData.slice(-15);
     const fontColor = theme === 'light' ? '#222222' : '#dddddd';
-    const dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.3)' : 'rgba(64, 255, 0, 0.5)';
     const gridColor = theme === 'light' ? 'rgba(80, 80, 80, 0.1)' : 'rgba(255, 255, 255, 0.2)';
+    const dataColorGp = theme === 'light' ? 'rgba(0, 200, 0, 0.8)' : 'rgba(64, 255, 0, 0.8)';
+    const dataColorOp = theme === 'light' ? 'rgba(250, 165, 0, 0.8)' : 'rgba(250, 165, 0, 0.8)';
+    const dataColorNp = theme === 'light' ? 'rgba(250, 128, 114, 0.8)' : 'rgba(250, 128, 114, 0.8)';
+    const dataColorRevenue = theme === 'light' ? '#368BC1' : '#368BC1';
+
+    const attributes = [{
+      backgroundColor: dataColorGp,
+      borderColor: dataColorGp,
+      attr: 'gpMargin',
+      label: 'Gross Margin (%)'
+    }, {
+      backgroundColor: dataColorOp,
+      borderColor: dataColorOp,
+      attr: 'oiMargin',
+      label: 'Operating Margin (%)'
+    }, {
+      backgroundColor: dataColorNp,
+      borderColor: dataColorNp,
+      attr: 'niMargin',
+      label: 'Net Income Margin (%)'
+    }, {
+      backgroundColor: dataColorRevenue,
+      borderColor: dataColorRevenue,
+      attr: 'rev',
+      id: 'revenue',
+      type: 'bar',
+      attachUnit: true,
+      label: `Quarterly Revenue`
+    }];
 
     const genDataSetAndAttributes = (attribute, alldata) => {
       const data = alldata.map(d => _.get(d, attribute.attr));
@@ -62,10 +64,9 @@ class MarginsChart extends React.Component {
         type: attribute.type || 'line',
         fill: false,
         lineTension: 0.3,
-        borderWidth: 1.5,
-        pointRadius: 2.5,
-        backgroundColor: dataColor,
-        pointHoverRadius: 5,
+        borderWidth: 1,
+        pointRadius: 3,
+        pointHoverRadius: 2,
         data,
         all: alldata,
         ...attribute,

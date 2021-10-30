@@ -37,31 +37,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var attributes = [{
-  backgroundColor: 'green',
-  borderColor: 'green',
-  attr: 'gpMargin',
-  label: 'Gross Margin (%)'
-}, {
-  backgroundColor: 'orange',
-  borderColor: 'orange',
-  attr: 'oiMargin',
-  label: 'Operating Margin (%)'
-}, {
-  backgroundColor: 'salmon',
-  borderColor: 'salmon',
-  attr: 'niMargin',
-  label: 'Net Income Margin (%)'
-}, {
-  backgroundColor: '#368BC1',
-  borderColor: '#368BC1',
-  attr: 'rev',
-  id: 'revenue',
-  type: 'bar',
-  attachUnit: true,
-  label: "Quarterly Revenue"
-}];
-
 var normalize = function normalize(data) {
   var divider = 1000;
   var unit = 'thousands';
@@ -113,8 +88,35 @@ function (_React$Component) {
       if (!initialData || !initialData.length) return null;
       initialData = initialData.slice(-15);
       var fontColor = theme === 'light' ? '#222222' : '#dddddd';
-      var dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.3)' : 'rgba(64, 255, 0, 0.5)';
       var gridColor = theme === 'light' ? 'rgba(80, 80, 80, 0.1)' : 'rgba(255, 255, 255, 0.2)';
+      var dataColorGp = theme === 'light' ? 'rgba(0, 200, 0, 0.8)' : 'rgba(64, 255, 0, 0.8)';
+      var dataColorOp = theme === 'light' ? 'rgba(250, 165, 0, 0.8)' : 'rgba(250, 165, 0, 0.8)';
+      var dataColorNp = theme === 'light' ? 'rgba(250, 128, 114, 0.8)' : 'rgba(250, 128, 114, 0.8)';
+      var dataColorRevenue = theme === 'light' ? '#368BC1' : '#368BC1';
+      var attributes = [{
+        backgroundColor: dataColorGp,
+        borderColor: dataColorGp,
+        attr: 'gpMargin',
+        label: 'Gross Margin (%)'
+      }, {
+        backgroundColor: dataColorOp,
+        borderColor: dataColorOp,
+        attr: 'oiMargin',
+        label: 'Operating Margin (%)'
+      }, {
+        backgroundColor: dataColorNp,
+        borderColor: dataColorNp,
+        attr: 'niMargin',
+        label: 'Net Income Margin (%)'
+      }, {
+        backgroundColor: dataColorRevenue,
+        borderColor: dataColorRevenue,
+        attr: 'rev',
+        id: 'revenue',
+        type: 'bar',
+        attachUnit: true,
+        label: "Quarterly Revenue"
+      }];
 
       var genDataSetAndAttributes = function genDataSetAndAttributes(attribute, alldata) {
         var data = alldata.map(function (d) {
@@ -125,10 +127,9 @@ function (_React$Component) {
           type: attribute.type || 'line',
           fill: false,
           lineTension: 0.3,
-          borderWidth: 1.5,
-          pointRadius: 2.5,
-          backgroundColor: dataColor,
-          pointHoverRadius: 5,
+          borderWidth: 1,
+          pointRadius: 3,
+          pointHoverRadius: 2,
           data: data,
           all: alldata
         }, attribute, {

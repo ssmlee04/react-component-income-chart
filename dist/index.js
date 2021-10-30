@@ -175,7 +175,7 @@ function (_React$Component) {
         }
       }, profile.ticker, " - ", profile.name, "\xA0", _react["default"].createElement("span", {
         className: "theme-green-".concat(theme)
-      }, "Revenue and Margins Analysis")), _react["default"].createElement(_MarginsChart["default"], {
+      }, "Revenue Analysis")), _react["default"].createElement(_MarginsChart["default"], {
         data: data,
         theme: theme
       }), _react["default"].createElement("div", {
