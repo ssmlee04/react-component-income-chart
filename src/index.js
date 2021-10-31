@@ -129,7 +129,7 @@ export class IncomeChart extends React.Component {
       backgroundColor: dataColorRevenue,
       borderColor: dataColorRevenue,
       attr: 'gpMargin',
-      label: 'Gross Margin %'
+      label: 'Gross Mgn %'
     // }, {
     //   backgroundColor: dataColorOp,
     //   borderColor: dataColorOp,
@@ -139,7 +139,7 @@ export class IncomeChart extends React.Component {
       backgroundColor: dataColorGp,
       borderColor: dataColorGp,
       attr: 'niMargin',
-      label: 'Net Margin %'
+      label: 'Net Profit Mgn %'
     }, {
       backgroundColor: 'red',
       borderColor: 'red',
