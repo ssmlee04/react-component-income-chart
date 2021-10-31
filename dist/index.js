@@ -273,7 +273,7 @@ function (_React$Component) {
       })).divider;
       var unit = normalize(initialData.map(function (d) {
         return d.rev;
-      })).u;
+      })).unit;
       var options = {
         legend: {
           labels: {
@@ -344,11 +344,8 @@ function (_React$Component) {
       }, profile.ticker, " - ", profile.name, "\xA0", _react["default"].createElement("span", {
         className: "theme-green-".concat(theme)
       }, "Quarterly Revenue Analysis\xA0", _react["default"].createElement("span", {
-        style: {
-          color: 'gray',
-          fontWeight: 'normal'
-        }
-      }, "(", unit, ")"))), _react["default"].createElement(_reactChartjs.Bar, {
+        className: "theme-black-".concat(theme, " normal")
+      }, "(unit: ", unit, ")"))), _react["default"].createElement(_reactChartjs.Bar, {
         data: data,
         height: 220,
         options: options
