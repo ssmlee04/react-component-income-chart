@@ -1,8 +1,26 @@
 import _ from 'lodash';
 import React from 'react';
-import MarginsChart from './MarginsChart';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Bar } from 'react-chartjs-2';
 import './../index.css';
+
+const normalize = (data) => {
+  let divider = 1000;
+  let unit = 'thousands';
+  let u = 'k';
+  if (!data || !data.length) return { data: [] };
+  if (data[0] > 10000000) {
+    divider = 1000000;
+    unit = 'milllion';
+    u = 'mil';
+  }
+  if (data[0] > 10000000000) {
+    divider = 1000000000;
+    unit = 'billion';
+    u = 'bil';
+  }
+  return { data: data.map(d => d/divider), unit, u, divider };
+};
 
 export class IncomeChart extends React.Component {
   constructor(props) {
@@ -42,12 +60,12 @@ export class IncomeChart extends React.Component {
       if (data[0].rev > 10000000) {
         divider = 1000000;
         unit = 'milllion';
-        u = 'm';
+        u = 'mil';
       }
       if (data[0].rev > 10000000000) {
         divider = 1000000000;
         unit = 'billion';
-        u = 'b';
+        u = 'bil';
       }
       data = data.filter(d => d.reportDate);
       data = data.map(d => {
@@ -97,12 +115,136 @@ export class IncomeChart extends React.Component {
       });
     };
 
-    const data = calculateMargins(_.get(profile, `${prop}.data`, []));
+    const initialData = calculateMargins(_.get(profile, `${prop}.data`, [])).slice(-15);
+
+    if (!initialData || !initialData.length) return null;
+    const fontColor = theme === 'light' ? '#222222' : '#dddddd';
+    const gridColor = theme === 'light' ? 'rgba(80, 80, 80, 0.1)' : 'rgba(255, 255, 255, 0.2)';
+    const dataColorGp = theme === 'light' ? 'rgba(0, 150, 0, 0.8)' : 'rgba(0, 150, 0, 0.8)';
+    // const dataColorOp = theme === 'light' ? 'rgba(250, 165, 0, 0.8)' : 'rgba(250, 165, 0, 0.8)';
+    // const dataColorNp = theme === 'light' ? 'rgba(250, 128, 114, 0.8)' : 'rgba(250, 128, 114, 0.8)';
+    const dataColorRevenue = theme === 'light' ? '#368BC1' : '#368BC1';
+
+    const attributes = [{
+      backgroundColor: dataColorRevenue,
+      borderColor: dataColorRevenue,
+      attr: 'gpMargin',
+      label: 'Gross Margin %'
+    // }, {
+    //   backgroundColor: dataColorOp,
+    //   borderColor: dataColorOp,
+    //   attr: 'oiMargin',
+    //   label: 'Operating Margin %'
+    }, {
+      backgroundColor: dataColorGp,
+      borderColor: dataColorGp,
+      attr: 'niMargin',
+      label: 'Net Margin %'
+    }, {
+      backgroundColor: 'red',
+      borderColor: 'red',
+      attr: 'gp',
+      id: 'bar',
+      type: 'bar',
+      stack: 'Stack 0',
+      attachUnit: true,
+      label: `Gross Profit`
+    }, {
+      backgroundColor: 'orange',
+      borderColor: 'orange',
+      attr: 'rev',
+      id: 'bar',
+      type: 'bar',
+      stack: 'Stack 1',
+      attachUnit: true,
+      label: `Revenue`
+    }];
+
+    const genDataSetAndAttributes = (attribute, alldata) => {
+      const data = alldata.map(d => _.get(d, attribute.attr));
+      return {
+        yAxisID: attribute.id || 'margins',
+        type: attribute.type || 'line',
+        fill: false,
+        lineTension: 0.3,
+        borderWidth: 1,
+        pointRadius: 3,
+        pointHoverRadius: 2,
+        data,
+        all: alldata,
+        ...attribute,
+        // label: attribute.attachUnit ? `${attribute.label} (${normalize(data).unit})` : attribute.label
+        label: attribute.label
+      };
+    };
+    const data = {
+      labels: initialData.map(d => d.reportDate),
+      datasets: attributes.map(attr => genDataSetAndAttributes(attr, initialData))
+    };
+    const divider = normalize(initialData.map(d => d.rev)).divider;
+    const unit = normalize(initialData.map(d => d.rev)).u;
+    const options = {
+      legend: {
+        labels: {
+          fontSize: 12,
+          fontColor, 
+          boxWidth: 10,
+        }
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            fontSize: 12,
+            fontColor 
+          },
+          gridLines: {
+            color: gridColor
+          },
+          barPercentage: 0.8
+        }],
+        yAxes: [{
+          type: 'linear',
+          display: true,
+          position: 'right',
+          id: 'margins',
+          gridLines: {
+            color: gridColor
+          },
+          labels: {
+            show: true
+          },
+          ticks: {
+            fontSize: 12,
+            fontColor, 
+              callback: function(label, index, labels) {
+                return label + '%';
+              }
+          },
+        },
+        {
+          type: 'linear',
+          display: true,
+          position: 'left',
+          id: 'bar',
+          labels: {
+            show: true
+          },
+          ticks: {
+            fontSize: 12,
+            fontColor, 
+            min: 0,
+            callback: function(label, index, labels) {
+              return Math.floor(label / divider);
+            }
+          },
+        }]
+      },
+    };
 
     return (
       <div style={{ width: '100%', padding: 5, fontSize: 12 }}>
-        <div className={`theme-darkred-${theme}`} style={{ fontWeight: 'bold' }}>{profile.ticker} - {profile.name}&nbsp;<span className={`theme-green-${theme}`}>Revenue Analysis</span></div>
-        <MarginsChart data={data} theme={theme} />
+        <div className={`theme-darkred-${theme}`} style={{ fontWeight: 'bold' }}>{profile.ticker} - {profile.name}&nbsp;<span className={`theme-green-${theme}`}>Quarterly Revenue Analysis&nbsp;<span style={{ color: 'gray', fontWeight: 'normal' }}>({unit})</span></span></div>
+        <Bar data={data} height={220} options={options} />
         <div style={{ fontSize: 12, padding: 5, paddingTop: 2 }}>Generated by <a href='https://twitter.com/tradeideashq' target='_blank' className={`theme-darkred-${theme}`}>@tradeideashq</a> with <span style={{ fontSize: 16, color: 'red' }}>💡</span></div>
       </div>
     );
